@@ -1,3 +1,11 @@
+// Made by Kelompok 7:
+// - Akmal Hafizh Musyaffa / 13222057
+// - Irfan Nurhakim Hilmi / 13222048
+// - Mahardhika Putra Adipratama / 13222081
+// - Mohammad Ari Alexander Azis / 13222093
+// - Nurul Annisa / 13222109
+// - Ronaldo / 18322007
+
 int count = 0, indeks = 0;
 int onLed[4] = {0, 0, 0, 0};
 int lockedLed[4] = {0, 0, 0, 0};
