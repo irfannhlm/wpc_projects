@@ -58,9 +58,9 @@ void loop() {
   // Nyalain LED berdasarkan onLed
   for (int i = 0; i < 4; i++) {
     if (onLed[i]) {
-      digitalWrite(i+8, HIGH);
+      digitalWrite(11-i, HIGH);
     } else {
-      digitalWrite(i+8, LOW);
+      digitalWrite(11-i, LOW);
     }
   }
 
