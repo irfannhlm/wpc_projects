@@ -7,24 +7,26 @@
 // - Ronaldo / 18322007
 
 int count = 0, indeks = 0;
-int onLed[4] = {0, 0, 0, 0};
-int lockedLed[4] = {0, 0, 0, 0};
+int onLed[4] = { 0, 0, 0, 0 };
+int lockedLed[4] = { 0, 0, 0, 0 };
+const char buttonPins[3] = { D0, D1, D2 };
+const char ledPins[4] = { D5, D6, D7, D8 };
 
 void setup() {
-  pinMode(7, INPUT);
-  pinMode(6, INPUT);
-  pinMode(5, INPUT);
-  pinMode(11, OUTPUT);
-  pinMode(10, OUTPUT);
-  pinMode(9, OUTPUT);
-  pinMode(8, OUTPUT);
+  pinMode(buttonPins[0], INPUT);
+  pinMode(buttonPins[1], INPUT);
+  pinMode(buttonPins[2], INPUT);
+  pinMode(ledPins[0], OUTPUT);
+  pinMode(ledPins[1], OUTPUT);
+  pinMode(ledPins[2], OUTPUT);
+  pinMode(ledPins[3], OUTPUT);
   Serial.begin(9600);
 }
 
 void loop() {
 
   // Ganti elemen di onLed buat dinyalain
-  if (digitalRead(7)) {
+  if (digitalRead(buttonPins[0])) {
     count++;
     indeks = count % 4;
     onLed[indeks] = 1;
@@ -32,18 +34,18 @@ void loop() {
     for (int i = 0; i < 4; i++) {
       if (not((lockedLed[i]) || (i == indeks))) {
         onLed[i] = 0;
-        }
       }
+    }
   }
 
   // Ganti elemen di lockedLed buat dilock
-  if (digitalRead(6)) {
+  if (digitalRead(buttonPins[1])) {
     indeks = count % 4;
     lockedLed[indeks] = 1;
   }
 
   // Print serial dan reset onLed serta lockedLed
-  if (digitalRead(5)) {
+  if (digitalRead(buttonPins[2])) {
     for (int i = 0; i < 4; i++) {
       if (i == 3) {
         Serial.println(lockedLed[i]);
@@ -58,13 +60,12 @@ void loop() {
   // Nyalain LED berdasarkan onLed
   for (int i = 0; i < 4; i++) {
     if (onLed[i]) {
-      digitalWrite(11-i, HIGH);
+      digitalWrite(ledPins[i], HIGH);
     } else {
-      digitalWrite(11-i, LOW);
+      digitalWrite(ledPins[i], LOW);
     }
   }
 
-  while ((digitalRead(7)) || (digitalRead(6)) || (digitalRead(5))) {delay(10);}
+  while ((digitalRead(buttonPins[0])) || (digitalRead(buttonPins[1])) || (digitalRead(buttonPins[2]))) { delay(10); }
   delay(10);
 }
-
